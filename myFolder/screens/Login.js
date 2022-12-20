@@ -1,11 +1,11 @@
-import {Text, View} from 'react-native';
+const {View, Text} = require('react-native');
 
-const Login = () => {
+function Login() {
   return (
     <View>
       <Text>Login</Text>
     </View>
   );
-};
+}
 
 export default Login;

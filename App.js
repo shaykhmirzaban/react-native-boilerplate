@@ -1,9 +1,10 @@
-import AppNavigation from './myFolder/navigation/AppNavigation';
+// component
+import MyApp from './myFolder/MyApp';
 
 const App = () => {
   return (
     <>
-      <AppNavigation />
+      <MyApp />
     </>
   );
 };
