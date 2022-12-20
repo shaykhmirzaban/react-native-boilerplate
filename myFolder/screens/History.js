@@ -1,93 +1,35 @@
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useEffect, useState} from 'react';
-const {
-  View,
-  Text,
-  Button,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  ToastAndroid,
-} = require('react-native');
-
-// firebase
 import database from '@react-native-firebase/database';
+const {View, Text, ScrollView, TouchableOpacity} = require('react-native');
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// css style
-import Styles from '../boilerplate/globalStyle';
-
-function Home() {
-  let [currentValue, setCurrentValue] = useState('');
+function History() {
   let [data, setData] = useState([]);
-
-  const getItem = () => {
+  useEffect(() => {
     database()
       .ref('TodoItem')
       .on('value', snapshort => {
         if (snapshort.exists()) {
-          let item = snapshort.val();
-          setData(Object.values(item));
+          let data = Object.values(snapshort.val());
+          setData(data);
         }
       });
-  };
-
-  useEffect(() => {
-    getItem();
   }, []);
 
-  const addItem = () => {
-    let id = database().ref('TodoItem/').push().key;
-    database()
-      .ref('TodoItem/' + id)
-      .set({
-        text: currentValue,
-        id: id,
-      })
-      .then(() => {
-        console.log('successfully added');
-        getItem();
-      })
-      .catch(() => console.log('Something want wrong'));
-  };
-
-  const deleteItem = id => {
-    database().ref(`TodoItem/${id}`).remove();
-  };
-
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-      }}>
-      {/* heading */}
-      <View style={{marginVertical: 15}}>
-        <Text style={[Styles.fwb, Styles.fs4, {color: '#333'}]}>
-          Todo Application
+    <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center'}}>
+      <View
+        style={{
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          padding: 15,
+        }}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#333'}}>
+          Todo History
         </Text>
       </View>
-      {/* Add Todo */}
-      <View style={[Styles.fdr, Styles.jcs, Styles.aic]}>
-        <TextInput
-          onChangeText={e => setCurrentValue(e)}
-          placeholder="Enter here..."
-          style={[Styles.inputArea, Styles.w75]}
-        />
-        <TouchableOpacity
-          style={{
-            width: 50,
-            height: 50,
-            backgroundColor: '#333',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 5,
-          }}
-          onPress={addItem}>
-          <Text style={{color: '#fff', fontSize: 15}}>Add</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* Todo Item */}
       <ScrollView
         style={{width: '100%'}}
@@ -98,7 +40,7 @@ function Home() {
         }}>
         {data &&
           data.length > 0 &&
-          data.map(value => {
+          data.map((value, index) => {
             return (
               <View
                 key={value.id}
@@ -118,7 +60,6 @@ function Home() {
                 {/* button */}
                 <View style={{flexDirection: 'row'}}>
                   <TouchableOpacity
-                    onPress={() => deleteItem(value.id)}
                     style={{
                       width: 30,
                       height: 30,
@@ -151,4 +92,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default History;

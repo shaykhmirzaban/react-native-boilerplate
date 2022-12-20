@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // components
 import Home from '../screens/Home';
-import Login from '../screens/Login';
+import History from '../screens/History';
 
 const Tab = createBottomTabNavigator();
 function TabNavigation() {
@@ -13,24 +13,24 @@ function TabNavigation() {
         headerShown: false,
         tabBarActiveTintColor: '#000',
         tabBarActiveBackgroundColor: '#fff',
-        tabBarInactiveTintColor: '#333',
-        tabBarInactiveBackgroundColor: '#fff',
+        // tabBarInactiveTintColor: '#333',
+        // tabBarInactiveBackgroundColor: '#fff',
       }}>
-      <Tab.Screen
-        name="Login"
-        component={Login}
-        options={{
-          tabBarIcon: color => {
-            return <Icon name="menu" size={25} color={color} />;
-          },
-        }}
-      />
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
           tabBarIcon: color => {
-            return <Icon name="home" size={25} color={color} />;
+            return <Icon name="home" size={25} color="#000" />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="History"
+        component={History}
+        options={{
+          tabBarIcon: color => {
+            return <Icon name="list-alt" size={25} color={color} />;
           },
         }}
       />
