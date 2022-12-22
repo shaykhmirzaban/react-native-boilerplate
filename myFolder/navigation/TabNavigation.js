@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // components
 import Home from '../screens/Home';
 import History from '../screens/History';
+import Home1 from '../screens/Home1';
 
 const Tab = createBottomTabNavigator();
 function TabNavigation() {
@@ -17,15 +18,15 @@ function TabNavigation() {
         // tabBarInactiveBackgroundColor: '#fff',
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Home1"
+        component={Home1}
         options={{
-          tabBarIcon: color => {
+          tabBarIcon: () => {
             return <Icon name="home" size={25} color="#000" />;
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="History"
         component={History}
         options={{
@@ -33,7 +34,7 @@ function TabNavigation() {
             return <Icon name="list-alt" size={25} color={color} />;
           },
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
